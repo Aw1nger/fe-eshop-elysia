@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${product.name} | Elysia`,
     description: product.description,
     openGraph: {
-      title: `${product.name}} | Elysia`,
+      title: `${product.name} | Elysia`,
       description: product.description,
       images: [
         {
@@ -41,11 +41,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
       ],
       locale: "ru_RU",
-      siteName: "TurTube",
+      siteName: "Elysia",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name}} | Elysia`,
+      title: `${product.name} | Elysia`,
       description: product.description,
       images: [product.images[0]?.versions[0].signedUrl ?? ""],
     },

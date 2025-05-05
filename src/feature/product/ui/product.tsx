@@ -46,7 +46,9 @@ export const Product = ({ id }: { id: string }) => {
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold capitalize">{data.name}</h1>
           <h2 className="text-xl font-extrabold">{data.price}₽</h2>
-          <p className="text-lg">{data.description}</p>
+          {data.description.split("\n").map((string, index) => (
+            <p className="text-lg" key={index}>{string}</p>
+          ))}
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-sm text-gray-500">
