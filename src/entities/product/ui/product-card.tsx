@@ -29,7 +29,7 @@ export const ProductCard = (product: z.infer<typeof ProductSchema>) => {
           <Image />
         </div>
       )}
-      <div className="flex flex-col gap-2 p-2">
+      <div className="flex flex-col gap-2 p-2 flex-grow">
         <CardTitle className="text-lg capitalize">{product.name}</CardTitle>
         <p className="text-sm">{product.price}₽</p>
         <Link
