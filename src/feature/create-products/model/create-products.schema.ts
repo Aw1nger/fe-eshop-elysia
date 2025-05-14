@@ -5,7 +5,7 @@ export const CreateProductsSchema = z.object({
     .string()
     .min(2, "Название не должно быть миньше 2х символов!")
     .max(128, "Название не должно быть больше 128 символов!"),
-  description: z.string().min(2).max(2048),
+  description: z.string().min(2).max(1024),
   price: z.number().min(0).max(9999999),
   count: z.number().min(1).max(9999999),
   image: z
