@@ -135,7 +135,7 @@ export const CreateProducts = ({ children }: { children: React.ReactNode }) => {
                 <FormItem>
                   <FormLabel>Описание</FormLabel>
                   <FormControl>
-                    <Textarea max={1024} rows={3} placeholder="Описание..." {...field} />
+                    <Textarea maxLength={1024} rows={3} placeholder="Описание..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
