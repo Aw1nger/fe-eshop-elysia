@@ -45,6 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: {
         url: user?.avatar ?? "",
       },
+      siteName: "Elysia"
     },
   };
 }

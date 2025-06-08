@@ -10,7 +10,7 @@ export const ProductCard = (product: z.infer<typeof ProductSchema>) => {
   return (
     <Card className="relative gap-0 overflow-hidden py-0">
       {product.images[0] ? (
-        <picture className="aspect-square overflow-hidden">
+        <picture className="flex aspect-square items-center justify-center overflow-hidden">
           {product.images[0].versions.map((image, index) => (
             <source
               key={index}
@@ -29,7 +29,7 @@ export const ProductCard = (product: z.infer<typeof ProductSchema>) => {
           <Image />
         </div>
       )}
-      <div className="flex flex-col gap-2 p-2">
+      <div className="flex flex-grow flex-col gap-2 p-2">
         <CardTitle className="text-lg capitalize">{product.name}</CardTitle>
         <p className="text-sm">{product.price}₽</p>
         <Link

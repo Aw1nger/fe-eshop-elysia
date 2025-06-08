@@ -1,12 +1,14 @@
-FROM oven/bun:latest AS base
+FROM node:23.7.0 AS base
 
 FROM base AS deps
+RUN apt install libc6 curl bash
 
 WORKDIR /app
 
 COPY package.json bun.lock ./
 
-RUN bun i --frozen-lockfile
+RUN curl -fsSL https://bun.sh/install | bash && \
+    ~/.bun/bin/bun i --frozen-lockfile
 
 FROM base AS builder
 WORKDIR /app
@@ -15,7 +17,7 @@ COPY --from=deps /root/.bun /root/.bun
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN bun run build
+RUN ~/.bun/bin/bun run build
 
 FROM base AS runner
 WORKDIR /app
@@ -33,4 +35,5 @@ COPY  ./start.js ./
 
 EXPOSE 3000
 
-CMD ["bun", "--bun", "start.js"]
+CMD ["node", "start.js"]
+
