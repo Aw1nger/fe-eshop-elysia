@@ -12,4 +12,5 @@ export const ProductSchema = z.object({
     avatar: z.string().nullable(),
   }),
   images: z.array(ImageSchema),
+  cartCount: z.number().optional(),
 });

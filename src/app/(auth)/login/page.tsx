@@ -1,3 +1,5 @@
+// (auth)/login/page.tsx
+
 import { Login } from "@/feature/loign";
 import { Metadata } from "next";
 

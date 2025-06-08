@@ -20,7 +20,7 @@ import { Logout } from "@/shared/lib/logout";
 import { MessageSchema } from "@/shared/model/message-schema";
 import { useAuth } from "@/shared/provider/auth-provider";
 import { useMutation } from "@tanstack/react-query";
-import { BadgeCheck, LogOut, TicketPlus, User } from "lucide-react";
+import { BadgeCheck, LogOut, TicketPlus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -54,9 +54,19 @@ export const UserDropdown = () => {
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
         >
           {pathname === `/user/${user?.username}` ? (
-            <User className="fill-primary stroke-primary size-6" />
+            <Avatar className="stroke-primary border-primary size-6 border-2 outline-3">
+              <AvatarImage src={user?.avatar ?? ""} alt={user?.username} />
+              <AvatarFallback className="rounded-lg">
+                {user?.username.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
           ) : (
-            <User className="size-6" />
+            <Avatar className="size-6">
+              <AvatarImage src={user?.avatar ?? ""} alt={user?.username} />
+              <AvatarFallback className="rounded-lg">
+                {user?.username.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
           )}
         </Button>
       </DropdownMenuTrigger>

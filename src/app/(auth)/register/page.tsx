@@ -1,3 +1,5 @@
+// (auth)/register/page.tsx
+
 import { Register } from "@/feature/register";
 import { Metadata } from "next";
 

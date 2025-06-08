@@ -14,13 +14,13 @@ export const ProductCard = (product: z.infer<typeof ProductSchema>) => {
           {product.images[0].versions.map((image, index) => (
             <source
               key={index}
-              srcSet={image.signedUrl}
+              srcSet={image.link}
               type={`image/${image.format}`}
             />
           ))}
           <img
             className="w-full object-contain"
-            src={product.images[0].versions[0].signedUrl}
+            src={product.images[0].versions[0].link}
             alt=""
           />
         </picture>
@@ -36,7 +36,7 @@ export const ProductCard = (product: z.infer<typeof ProductSchema>) => {
           href={"/products/" + product.id}
           className={cn(
             buttonVariants({ variant: "secondary" }),
-            "hover:bg-primary after:absolute after:inset-0",
+            "hover:bg-primary transition-all duration-300 after:absolute after:inset-0",
           )}
         >
           Перейти

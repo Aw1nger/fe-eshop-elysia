@@ -1,3 +1,5 @@
+// layout.tsx
+
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { Toaster } from "sonner";
@@ -28,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body
-        className={`${roboto.className} bg-background flex min-h-screen flex-col antialiased`}
+        className={`${roboto.className} bg-background flex min-h-[100dvh] flex-col antialiased`}
       >
         <ProviderCompose>{children}</ProviderCompose>
         <Toaster />

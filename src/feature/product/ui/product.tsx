@@ -1,12 +1,55 @@
 "use client";
+import { apiHandler } from "@/shared/action/api-handler";
+import { deleteAction } from "@/shared/action/delete-action";
+import { postAction } from "@/shared/action/post-action";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/shared/components/ui/avatar";
 import { Button } from "@/shared/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { Image } from "lucide-react";
+import { useAuth } from "@/shared/provider/auth-provider";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Image, Trash } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { z } from "zod";
 import { GetProductOption } from "../api/product.api";
 
 export const Product = ({ id }: { id: string }) => {
+  const { user } = useAuth();
+  const { push } = useRouter();
+  const queryClient = useQueryClient();
   const { data, isPending, error } = useQuery(GetProductOption(id));
+
+  const { mutate: addCart, isPending: addingCart } = useMutation({
+    mutationFn: async () =>
+      await apiHandler(() => postAction(`/cart/${id}`), z.string()),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", id] });
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: () => {
+      toast.error("Что-то пошло не так!", {
+        description: "Технические шоколадки, попробуйте позже",
+      });
+    },
+  });
+
+  const { mutate: deleteCart, isPending: deletingCart } = useMutation({
+    mutationFn: async () =>
+      await apiHandler(() => deleteAction(`/cart/${id}`), z.object({})),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", id] });
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: () => {
+      toast.error("Что-то пошло не так!", {
+        description: "Технические шоколадки, попробуйте позже",
+      });
+    },
+  });
 
   if (error) {
     return <div className="text-red-500">{error.message}</div>;
@@ -25,13 +68,13 @@ export const Product = ({ id }: { id: string }) => {
               {data.images[0].versions.map((image, index) => (
                 <source
                   key={index}
-                  srcSet={image.signedUrl}
+                  srcSet={image.link}
                   type={`image/${image.format}`}
                 />
               ))}
               <img
                 className="aspect-square h-full w-full rounded-lg object-contain"
-                src={data.images[0].versions[0].signedUrl}
+                src={data.images[0].versions[0].link}
                 alt=""
               />
             </picture>
@@ -49,16 +92,48 @@ export const Product = ({ id }: { id: string }) => {
           <p className="text-lg">{data.description}</p>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm text-gray-500">
-            <Link
-              className="text-gray-700 capitalize underline"
-              href={"/user/" + data.user.username}
+          <div className="flex items-center gap-1.5">
+            <Button className="capitalize" variant="link" asChild>
+              <Link href={"/user/" + data.user.username}>
+                <Avatar className="size-6">
+                  <AvatarImage
+                    src={data.user.avatar ?? undefined}
+                    alt={data.user.username}
+                  />
+                  <AvatarFallback className="rounded-lg">
+                    {data.user.username.slice(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                {data.user.username}
+              </Link>
+            </Button>
+            <p className="text-sm text-gray-500">| В наличии: {data.count}</p>
+          </div>
+
+          {user ? (
+            data.cartCount ? (
+              <Button
+                onClick={() => deleteCart()}
+                disabled={deletingCart}
+                variant="destructive"
+              >
+                <Trash /> Удалить из корзины
+              </Button>
+            ) : (
+              <Button onClick={() => addCart()} disabled={addingCart}>
+                В корзину
+              </Button>
+            )
+          ) : (
+            <Button
+              onClick={() => {
+                toast.warning("Войдите что бы добавить в корзину!");
+                push("/login");
+              }}
             >
-              {data.user.username}
-            </Link>{" "}
-            {" | "}В наличии: {data.count}
-          </p>
-          <Button disabled>В корзину</Button>
+              В корзину
+            </Button>
+          )}
         </div>
       </div>
     </section>

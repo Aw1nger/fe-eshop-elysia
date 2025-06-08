@@ -1,3 +1,5 @@
+// feature/create-product/ui/create-product.tsx
+
 "use client";
 
 import { ApiError } from "@/shared/action/api-error";
@@ -37,6 +39,11 @@ const ResponseSchema = z.object({
   id: z.number(),
 });
 
+/**
+ * Компонент формы создания товара
+ * @param children
+ * @constructor
+ */
 export const CreateProducts = ({ children }: { children: React.ReactNode }) => {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const queryClient = useQueryClient();

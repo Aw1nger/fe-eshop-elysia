@@ -1,3 +1,5 @@
+// (public)/layout.tsx
+
 import { Header } from "@/widgets/header";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {

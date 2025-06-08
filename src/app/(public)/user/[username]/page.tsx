@@ -1,3 +1,5 @@
+// (public)/user/[username]/page.tsx
+
 import { getUser } from "@/entities/user/api/user.api";
 import { CreateProducts } from "@/feature/create-products";
 import { User } from "@/feature/user";

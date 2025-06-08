@@ -21,8 +21,6 @@ export async function apiHandler<ReturnType>(
       throw new ApiError(error.message, { fields: error.fields });
     }
 
-    console.log(data);
-
     return schema.parse(data);
   } catch (error: unknown) {
     if (error instanceof ZodError) {

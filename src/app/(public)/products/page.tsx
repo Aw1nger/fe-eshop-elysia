@@ -1,3 +1,5 @@
+// (public)/products/[id]/page.tsx
+
 import { Products } from "@/feature/products";
 
 const Page = async () => {

@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: product.description,
       images: [
         {
-          url: product.images[0]?.versions[0].signedUrl ?? "",
+          url: product.images[0]?.versions[0].link ?? "",
           alt: product.name,
         },
       ],
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${product.name}} | Elysia`,
       description: product.description,
-      images: [product.images[0]?.versions[0].signedUrl ?? ""],
+      images: [product.images[0]?.versions[0].link ?? ""],
     },
   };
 }

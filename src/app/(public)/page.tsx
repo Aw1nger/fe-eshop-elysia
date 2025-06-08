@@ -1,3 +1,5 @@
+// (public)/page.tsx
+
 import { Products } from "@/feature/products";
 import Image from "next/image";
 

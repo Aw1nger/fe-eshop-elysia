@@ -63,18 +63,6 @@ api.interceptors.response.use(
     return response;
   },
   async (error: AxiosError) => {
-    console.error(
-      chalk.bgRedBright("Error"),
-      chalk.yellowBright(error.config?.url),
-      {
-        Code: error.code,
-        Headers: error.config?.headers,
-        Status: error.status,
-        "Request data": error.config?.data,
-        Response: error.response?.data,
-      },
-    );
-
     const originalRequest = error.config as AxiosRequestConfig & {
       _retry?: boolean;
     };
@@ -112,6 +100,17 @@ api.interceptors.response.use(
         cookieStore.delete("refreshToken");
       }
     }
+
+    console.error(
+      chalk.bgRedBright("Error"),
+      chalk.yellowBright(error.config?.url),
+      {
+        Code: error.code,
+        Status: error.status,
+        "Request data": error.config?.data,
+        Response: error.response?.data,
+      },
+    );
 
     return Promise.reject(error);
   },
