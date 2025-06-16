@@ -89,7 +89,7 @@ export const EmailForm = ({
         >
           <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center gap-2">
-              <h1 className="text-xl font-bold">Доброо пожаловать!</h1>
+              <h1 className="text-xl font-bold">Добро пожаловать!</h1>
               <div className="text-center text-sm">
                 Нет аккаунта?{" "}
                 <a href="/register" className="underline underline-offset-4">

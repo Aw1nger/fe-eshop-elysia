@@ -172,7 +172,7 @@ export const CreateProducts = ({ children }: { children: React.ReactNode }) => {
                 name="count"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Колличество</FormLabel>
+                    <FormLabel>Количество</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
